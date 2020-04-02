@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,600|Open+Sans" rel="stylesheet"> 
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css">
+	<link rel="stylesheet" href="estilos.css">
+    <script src="http:code.jquery.com/jquery.js"></script>
+	<title>Ventana Emergente Animada</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body >
+
+	<div class="contenedor">
+		
+        <header align="center">
+      <h1>Piedra, Papel o Tijeras</h1>
+    </header>
+
+    <div class="marcador">
+      <div class="user-label badge">User</div>
+      <div class="comp-label badge">PC</div>
+      <span id="user-score">0</span> :
+      <span id="comp-score">0</span>
+        
+    </div>
+
+    <div class="result">
+      <p>A jugar!!</p>
+    </div>
+
+    <div class="opciones">
+      <div class="choice" id="r">
+        <img src="img/piedra.png" alt="">
+      </div>
+      <div class="choice" id="p">
+        <img src="img/papel.png" alt="">
+      </div>
+      <div class="choice" id="t">
+        <img src="img/tijera.png" alt="">
+      </div>
+        
+    </div>
+
+    <p id="accion">A Jugar!!!</p>
+        
+ <div class="overlay" id="overlay2">
+			<div class="popup" id="popup2">
+				<a href="#" id="btn-cerrar-popup" class="btn-cerrar-popup"><i class="fas fa-times"></i></a>
+                <h3>!!!!!!FELICITACIONES¡¡¡¡¡¡</h3>
+				<h3>HAS GANADO</h3>
+				 <input type="button" class="btn-submit" value="Cerrar" onclick="javascript:window.location.reload()"/>
+				
+					
+			</div>
+		</div>
+         <div class="overlay" id="overlay3">
+			<div class="popup" id="popup3">
+				<a href="#" id="btn-cerrar-popup" class="btn-cerrar-popup"><i class="fas fa-times"></i></a>
+                
+				<h3>HAS PERDIDO</h3>
+				<h3>!!!!!!SIGUE INTENTANTO¡¡¡¡¡¡</h3>
+				<input type="button" class="btn-submit" value="Cerrar" onclick="window.location.reload()">
+					
+			</div>
+		</div>
+		<div class="overlay" id="overlay">
+			<div class="popup" id="popup">
+				<a href="#" id="btn-cerrar-popup" class="btn-cerrar-popup"><i class="fas fa-times"></i></a>
+			
+			
+				<form action="">
+						
+					<div id="pregunta"></div>
+     <div id="respuestas"></div>
+    <input type="button" class="btn-submit" value="COMPROBAR" onclick="comprobar()">
+<script>
+ 
+						
+					
+     var preguntas =[
+    
+    "¿Con cuántos países limita Argentina?", 
+    "¿A qué película de Disney pertenece la canción Un mundo ideal?",
+    "¿Cuál es la capital de Suiza?", 
+    "¿Cuál de estas características no pertenece al clima Mediterráneo?", 
+    "¿Cuántos jugadores componen un equipo de rugby?", 
+    "¿El Renacimiento marcó el inicio de la Edad?", 
+    "¿Qué odia Mafalda?", 
+    "¿Cuál es la capital de Ecuador?", 
+    "¿Cómo se llama el estadio del FCBarcelona?", 
+    "¿Qué tipo de mamífero es un conejo?", 
+    "¿De qué material está hecho un saxofón?", 
+    "¿Cómo se llama el robot alcohólico de la serie Futurama?", 
+    "¿En qué idioma se escribió el antiguo testamento por primera vez?", 
+    "¿Dónde se encuentra la cordillera de Los Andes?", 
+    "¿De qué colores es la camiseta del Atlético de Madrid?", 
+    "¿Quién fue el inventor de la bombilla?", 
+    "¿Qué poeta escribió Mi bufón?" 
+    ];
+     var respuestas =[
+  ["Cinco","Cuatro","seis","tres"],
+  ["Aladdín","Pocahontas","Mulán","Hércules"],  
+  ["Berna","Zurich","Ginebran","Basilea"],
+  ["Lluvias muy abundantes","Veranos secos y calurosos","Es un tipo de clima templado","Variables temperaturas en primavera"], 
+  ["15","12","11","21"], 
+  ["Moderna","Antigüedad clásica","Contemporánea","Media"], 
+  ["La sopa","El Pájaro Loco","Los panqueques","A Manolito"],
+  ["Quito","Lima","Bogota","Guayaquil"],  
+  ["Camp Nou","Santiago Bernabeu","La Masia","Barcelona Camp"],
+  ["Lagomorfo","Roedor","Marsupial","Equino"], 
+  ["Latón ","Cobre","Hierro","Acero"], 
+  ["Bender","Leela","Zoidberg","Hubert"],
+  ["Hebreo","Griego","Latín","Jesuíta"], 
+  ["América","Oceania","Asia","Europa"],
+  ["Rojo y blanco","Rojo y negro","Azul y amarillo","Blanco y verde"],  
+  ["Edison","Fahrenheit","Janssen","Newton"],
+  ["Antonio Machado","Gustavo Adolfo Bécquer","Rafael Alberti","Lope de Vega"] 
+    ];
+
+  jugar();
+    var indice_respuesta_correcta;
+    function jugar(){
+          
+    var indice_aleatoreo=Math.floor(Math.random()*preguntas.length);
+    var respuestas_posibles=respuestas[indice_aleatoreo];
+    
+    var posiciones=[0,1,2,3 ];
+    var respuestas_reordenadas=[];
+   
+    var ya_se_metio = false;
+    
+    for(i in respuestas_posibles){
+    var posicion_aleatorea=Math.floor(Math.random()*posiciones.length);
+         if(posicion_aleatorea==0 &&ya_se_metio==false){
+       indice_respuesta_correcta=i;
+             ya_se_metio=true;
+   }
+    respuestas_reordenadas[i]=respuestas_posibles[posiciones[posicion_aleatorea]];
+        posiciones.splice(posicion_aleatorea, 1)
+    }
+    var txt_respuestas="";
+for(i in respuestas_reordenadas){
+    txt_respuestas +='<input type="radio" name="pp" value="'+i+'"><label>'+respuestas_reordenadas[i]+'</label><br><br>';
+    
+}
+    document.getElementById("respuestas").innerHTML=txt_respuestas;
+   document.getElementById("pregunta").innerHTML= preguntas[indice_aleatoreo];
+   
+    }
+    
+    function comprobar(){
+       var respuesta= $("input[type=radio]:checked").val();
+        if(respuesta==indice_respuesta_correcta){
+          suma_empate_user();
+         
+        }else{
+        suma_empate_pc();
+     
+    }
+    
+    jugar();
+    }
+   
+    </script>
+
+				</form>
+			</div>
+		</div>
+	</div>
+
+	<script src="popup.js"></script>
+    <script type="text/javascript" src="app.js"></script>
+</body>
+</html>
